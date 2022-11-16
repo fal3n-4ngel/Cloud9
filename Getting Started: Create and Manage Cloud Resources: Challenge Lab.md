@@ -13,7 +13,8 @@ As soon as you sit down at your desk and open your new laptop you receive severa
 * Run the following from the **Cloud Terminal**:
 
 ```yaml
-gcloud compute instances create nucleus-jumphost \
+#Make sure to change "nucleus-jumphost" to the name you have in the lab , proly nucleus-jumphost-[a number]
+gcloud compute instances create nucleus-jumphost \    
           --network nucleus-vpc \
           --zone us-east1-b  \
           --machine-type f1-micro  \
@@ -22,11 +23,14 @@ gcloud compute instances create nucleus-jumphost \
           --scopes cloud-platform \
           --no-address
 ```
+
 ### Task 2: Create a Kubernetes service cluster
 
 * Run the following from the **Cloud Terminal**:
 
 ```yaml
+# Check the specified port and other details in your lab
+
 gcloud container clusters create nucleus-backend \
           --num-nodes 1 \
           --network nucleus-vpc \
@@ -46,8 +50,10 @@ kubectl expose deployment hello-server \
 ### Task 3: Setup an HTTP load balancer
 
 * Run the following from the **Cloud Terminal**:
-
 ```yaml
+# make sure to change the firewall name and other user specific values
+
+
 cat << EOF > startup.sh
 #! /bin/bash
 apt-get update
